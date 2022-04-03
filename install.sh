@@ -145,7 +145,7 @@ function installNodeJsAndYarn() {
   sudo apt-get install -y nodejs
 
   echo "Installing Yarn..."
-  corepack enable
+  sudo corepack enable
 }
 
 updatePackages
