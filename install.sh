@@ -35,6 +35,7 @@ EOF"
 }
 
 function configureSystemd() {
+  sudo systemctl set-default multi-user.target
   sudo systemctl disable multipathd.service
   sudo systemctl mask systemd-modules-load.service
 }
