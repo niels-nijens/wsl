@@ -28,8 +28,8 @@ function installSystemdGenieSource() {
   sudo chmod a+r /etc/apt/trusted.gpg.d/wsl-transdebian.gpg
   if [ ! -f /etc/apt/sources.list.d/wsl-transdebian.list ]; then
     sudo su -c "cat << EOF > /etc/apt/sources.list.d/wsl-transdebian.list
-deb https://arkane-systems.github.io/wsl-transdebian/apt/ $(lsb_release -cs) main
-deb-src https://arkane-systems.github.io/wsl-transdebian/apt/ $(lsb_release -cs) main
+deb https://arkane-systems.github.io/wsl-transdebian/apt/ focal main
+deb-src https://arkane-systems.github.io/wsl-transdebian/apt/ focal main
 EOF"
   fi
 }
