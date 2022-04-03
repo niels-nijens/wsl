@@ -13,6 +13,15 @@ function installDevelopmentUtilities() {
     build-essential
 }
 
+function configureGit() {
+  echo "Configuring git..."
+  echo -n "" >> ~/.gitignore
+  git config --global --add core.autocrlf input
+  git config --global --path --add core.excludesfile "$HOME/.gitignore"
+  git config --global --add push.default simple
+  git config --global --add credential.helper "cache --timeout=432000"
+}
+
 function installSystemdGenie() {
   echo "Installing Systemd genie..."
   installSystemdGenieSource
@@ -99,6 +108,8 @@ function installJetbrainsToolbox() {
   cd ~/.local/share/JetBrains/Toolbox/
   tar -xvzf /tmp/jetbrains-toolbox-1.23.11680.tar.gz
   mv ~/.local/share/JetBrains/Toolbox/jetbrains-toolbox-1.23.11680 ~/.local/share/JetBrains/Toolbox/bin
+
+  echo "/.idea/" >> ~/.gitignore
 }
 
 function promptRunJetbrainsToolbox() {
