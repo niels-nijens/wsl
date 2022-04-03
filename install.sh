@@ -53,11 +53,6 @@ function installBashInit() {
   echo "source ~/bin/bash-init.sh" >> ~/.bashrc
 }
 
-function runBashInit() {
-  echo "Initializing bash init..."
-  exec ~/bin/bash-init.sh
-}
-
 function promptInstallDockerEngineAndCompose() {
   echo "Install Docker Engine and Docker Compose?"
   select prompt in "Yes" "No" "Exit"; do
@@ -147,7 +142,6 @@ installDevelopmentUtilities
 installSystemdGenie
 createSshKey
 installBashInit
-runBashInit
 promptInstallDockerEngineAndCompose
 promptInstallJetbrainsToolbox
 promptRunJetbrainsToolbox
