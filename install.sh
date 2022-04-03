@@ -2,13 +2,13 @@
 
 function updatePackages() {
   echo "Updating system packages..."
-  sudo apt-get update
-  sudo apt-get upgrade -y
+  sudo apt-get update -qq
+  sudo apt-get upgrade -qq -y
 }
 
 function installDevelopmentUtilities() {
   echo "Installing common development utilities..."
-  sudo apt-get install -y \
+  sudo apt-get install -qq -y \
     git \
     build-essential
 }
@@ -26,8 +26,8 @@ function installSystemdGenie() {
   echo "Installing Systemd genie..."
   installSystemdGenieSource
 
-  sudo apt-get update
-  sudo apt install -y systemd-genie
+  sudo apt-get update -qq
+  sudo apt install -qq -y systemd-genie
 
   configureSystemd
 }
@@ -44,6 +44,7 @@ EOF"
 }
 
 function configureSystemd() {
+  echo "Configuring systemd..."
   sudo systemctl set-default multi-user.target
   sudo systemctl disable multipathd.service
   sudo systemctl mask systemd-modules-load.service
@@ -74,7 +75,8 @@ function promptInstallDockerEngineAndCompose() {
 }
 
 function installDockerEngineAndCompose() {
-  sudo apt-get install -y \
+  echo "Installing Docker Engine..."
+  sudo apt-get install -qq -y \
       ca-certificates \
       curl \
       gnupg \
@@ -84,7 +86,8 @@ function installDockerEngineAndCompose() {
   sudo groupadd docker
   sudo usermod -aG docker $USER
 
-  sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  echo "Installing Docker Compose..."
+  sudo curl -fsSL "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 }
 
@@ -101,7 +104,8 @@ function promptInstallJetbrainsToolbox() {
 
 function installJetbrainsToolbox() {
   echo "Installing Nautilus for Jetbrains Toolbox dependencies..."
-  sudo apt-get install -y nautilus
+  sudo apt-get install -qq -y nautilus
+
   echo "Installing Jetbrains Toolbox..."
   wget -qO /tmp/jetbrains-toolbox-1.23.11680.tar.gz https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.23.11680.tar.gz
   mkdir -p ~/.local/share/JetBrains/Toolbox/
@@ -142,7 +146,7 @@ function promptInstallNodeJsAndYarn() {
 function installNodeJsAndYarn() {
   echo "Installing NodeJS ..."
   curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-  sudo apt-get install -y nodejs
+  sudo apt-get install -qq -y nodejs
 
   echo "Installing Yarn..."
   sudo corepack enable
